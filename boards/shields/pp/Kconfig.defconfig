@@ -1,0 +1,6 @@
+if SHIELD_PP_LEFT
+
+config ZMK_KEYBOARD_NAME
+    default "PP Left"
+
+endif

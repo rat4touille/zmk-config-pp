@@ -13,5 +13,18 @@
                 &kp Q    &kp B    &kp L    &kp 1
             >;
         };
+
+        fn_layer {
+            display-name = "Fn";
+            bindings = // etc.
+        };
+
+        extra1 {
+            status = "reserved";
+        };
+
+        extra2 {
+            status = "reserved";
+        };
     };
  };

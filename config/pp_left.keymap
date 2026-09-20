@@ -16,7 +16,12 @@
 
         fn_layer {
             display-name = "Fn";
-            bindings = // etc.
+            bindings = <
+                &trans &trans &trans &trans &trans
+                &trans &trans &trans &trans &trans
+                &trans &trans &trans &trans &trans
+                &trans &trans &trans &trans
+            >;
         };
 
         extra1 {

@@ -23,3 +23,8 @@ include:
     shield: pp_left
     snippet: zmk-usb-logging
     cmake-args: -DCONFIG_ZMK_STUDIO=y
+  - board: nice_nano_v2
+    shield: pp_left
+    snippet: zmk-usb-logging
+    cmake-args: -DCONFIG_ZMK_STUDIO=y -DCONFIG_ZMK_SETTINGS_RESET_ON_START=y -DCONFIG_ZMK_BLE_CLEAR_BONDS_ON_START=y
+    artifact-name: pp_left_settings_reset

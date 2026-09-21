@@ -1,2 +1,2 @@
 config SHIELD_PP_LEFT
-    def_bool $(shields_list_contains, pp_left)
+    def_bool $(shields_list_contains,pp_left)

@@ -1,4 +1,4 @@
-#include <behaviors.dtsi>
+1#include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 
 / {
@@ -19,7 +19,7 @@
             bindings = <
                 &kp Z    &kp M    &kp K    &kp Y    &kp W
                 &kp A    &kp B    &kp C    &kp R    &kp G
-                &kp D    &kp E    &kp F    &kp N    &kp P
+                &kp C_AL_WWW    &kp E    &kp F    &kp N    &kp P
                 &kp Q    &kp B    &kp L    &kp 1
             >;
         };

@@ -1,7 +1,7 @@
 if SHIELD_PP_LEFT
 
 config ZMK_KEYBOARD_NAME
-    default "verity"
+    default "PP"
 
 config ZMK_SPLIT_ROLE_CENTRAL
     default y

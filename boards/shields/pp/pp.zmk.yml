@@ -1,8 +1,11 @@
 file_format: "1"
-id: pp_left
-name: PP Left
+id: pp
+name: PP Split
 type: shield
 requires: [nice_nano_v2]
 features:
   - keys
   - studio
+siblings:
+  - pp_left
+  - pp_right

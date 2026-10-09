@@ -23,7 +23,7 @@
     keymap {
         compatible = "zmk,keymap";
 
-        default_layer { // Layer 0
+        default_layer {
             bindings = <
                 &kp Z    &kp M    &kp K    &kp Y    &kp W    &kp Z    &kp M    &kp K    &kp Y    &kp W
                 &kp A    &kp B    &kp C    &kp R    &kp G    &kp A    &kp B    &kp C    &kp R    &kp G
@@ -37,7 +37,7 @@
             bindings = <
                 &out OUT_BLE  &out OUT_USB  &bt BT_CLR  &bt BT_SEL 0  &bt BT_SEL 1    &out OUT_BLE  &out OUT_USB  &bt BT_CLR  &bt BT_SEL 0  &bt BT_SEL 1
                 &trans        &trans       &trans        &trans        &trans          &trans        &trans       &trans        &trans        &trans
-                &trans        &trans       &trans        &trans        &trans          &trans        &trans       &trans        &trans        &trans
+                &trans        &trans       &trans        &trans        &trans          &trans        &trans       &trans        &trans
                 &trans        &trans       &trans        &trans          &trans        &trans       &trans        &trans
             >;
         };
@@ -50,4 +50,4 @@
             status = "reserved";
         };
     };
- };
+};

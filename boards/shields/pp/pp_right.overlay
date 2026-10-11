@@ -81,4 +81,9 @@
             device = <&pmw3610>;
         };
     };
+
+    pmw3610_listener {
+        compatible = "zmk,input-listener";
+        device = <&pmw3610>;
+    };
 };

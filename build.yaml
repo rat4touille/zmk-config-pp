@@ -28,6 +28,7 @@ include:
   - board: nice_nano_v2
     shield: pp_right
     snippet: zmk-usb-logging
-    artifact-name: pp_right_usb_logging
+    cmake-args: -DCONFIG_INPUT_EVENT_DUMP=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=y
+    artifact-name: pp_right_standalone_mouse_usb_logging
   - board: nice_nano_v2
     shield: settings_reset

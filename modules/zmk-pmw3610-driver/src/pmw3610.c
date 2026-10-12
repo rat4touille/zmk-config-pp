@@ -74,6 +74,8 @@ static int pmw3610_read_reg(const struct device *dev, uint8_t addr, uint8_t *val
 	return pmw3610_read(dev, addr, value, 1);
 }
 
+static int pmw3610_write_reg(const struct device *dev, uint8_t addr, uint8_t value);
+
 static void pmw3610_dump_registers(const struct device *dev) {
     static const uint8_t registers[] = {
         PMW3610_REG_PRODUCT_ID,       PMW3610_REG_REVISION_ID,

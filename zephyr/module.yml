@@ -1,4 +1,7 @@
 name: zmk-keyboard-pp
 build:
+  cmake: modules/zmk-pmw3610-driver
+  kconfig: modules/zmk-pmw3610-driver/Kconfig
   settings:
     board_root: .
+    dts_root: modules/zmk-pmw3610-driver

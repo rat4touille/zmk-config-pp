@@ -58,7 +58,7 @@
     cs-gpios = <&gpio0 2 GPIO_ACTIVE_LOW>;
 
     pmw3610: pmw3610@0 {
-        compatible = "pixart,pmw3610";
+        compatible = "pixart,pmw3610-alt";
         reg = <0>;
         status = "okay";
         spi-max-frequency = <2000000>;
@@ -71,17 +71,6 @@
 };
 
 / {
-    split_inputs {
-        #address-cells = <1>;
-        #size-cells = <0>;
-
-        pmw3610_input_split: input_split@0 {
-            compatible = "zmk,input-split";
-            reg = <0>;
-            device = <&pmw3610>;
-        };
-    };
-
     pmw3610_listener {
         compatible = "zmk,input-listener";
         device = <&pmw3610>;

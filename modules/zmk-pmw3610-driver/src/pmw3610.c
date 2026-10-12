@@ -125,37 +125,44 @@ static void pmw3610_diagnostic_work(struct k_work *work) {
     }
 
     unsigned int shutter = ((unsigned int)values[2] << 8) | values[3];
-    int page_err = pmw3610_write_reg(dev, PMW3610_REG_SPI_PAGE0, PMW3610_REG_SPI_PAGE1);
+    uint8_t res = 0;
     uint8_t vcsel = 0;
     uint8_t lsr = 0;
-    bool page1_read_ok = page_err == 0;
-
+    bool page1_read_ok = true;
+    int page_err = pmw3610_write_reg(dev, 0x7f, 0xff);
     if (page_err) {
         LOG_ERR("Cannot select SPI page 1: %d", page_err);
+        page1_read_ok = false;
     } else {
-        page_err = pmw3610_read_reg(dev, PMW3610_REG_VCSEL_CTL, &vcsel);
-        if (page_err) {
-            LOG_ERR("Cannot read VCSEL control register: %d", page_err);
+        int err = pmw3610_read_reg(dev, 0x05, &res);
+        if (err) {
+            LOG_ERR("Cannot read RES_STEP register: %d", err);
             page1_read_ok = false;
         }
 
-        page_err = pmw3610_read_reg(dev, PMW3610_REG_LSR_CONTROL, &lsr);
-        if (page_err) {
-            LOG_ERR("Cannot read laser control register: %d", page_err);
+        err = pmw3610_read_reg(dev, 0x1e, &vcsel);
+        if (err) {
+            LOG_ERR("Cannot read VCSEL control register: %d", err);
+            page1_read_ok = false;
+        }
+
+        err = pmw3610_read_reg(dev, 0x1f, &lsr);
+        if (err) {
+            LOG_ERR("Cannot read laser control register: %d", err);
             page1_read_ok = false;
         }
     }
 
-    int restore_err = pmw3610_write_reg(dev, PMW3610_REG_SPI_PAGE0, 0x00);
+    int restore_err = pmw3610_write_reg(dev, 0x7f, 0x00);
     if (restore_err) {
         LOG_ERR("Cannot restore SPI page 0: %d", restore_err);
     }
 
     if (page1_read_ok) {
-        LOG_INF("Sensor diag: motion=0x%02x squal=%u shutter=%u pixel(max/avg/min)=%u/%u/%u VCSEL(0x9e)=0x%02x LSR(0x9f)=0x%02x",
+        LOG_INF("Sensor diag: motion=0x%02x squal=%u shutter=%u pixel(max/avg/min)=%u/%u/%u RES_STEP(0x85)=0x%02x VCSEL(0x9e)=0x%02x LSR(0x9f)=0x%02x",
                 (unsigned int)values[0], (unsigned int)values[1], shutter,
                 (unsigned int)values[4], (unsigned int)values[5], (unsigned int)values[6],
-                (unsigned int)vcsel, (unsigned int)lsr);
+                (unsigned int)res, (unsigned int)vcsel, (unsigned int)lsr);
     } else {
         LOG_INF("Sensor diag: motion=0x%02x squal=%u shutter=%u pixel(max/avg/min)=%u/%u/%u VCSEL/LSR=unavailable",
                 (unsigned int)values[0], (unsigned int)values[1], shutter,

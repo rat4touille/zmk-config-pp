@@ -95,6 +95,42 @@ static void pmw3610_dump_registers(const struct device *dev) {
     }
 }
 
+static void pmw3610_diagnostic_work(struct k_work *work) {
+    struct k_work_delayable *dwork = k_work_delayable_from_work(work);
+    struct pixart_data *data = CONTAINER_OF(dwork, struct pixart_data, diagnostic_work);
+    const struct device *dev = data->dev;
+    const struct pixart_config *config = dev->config;
+    static const uint8_t registers[] = {
+        PMW3610_REG_MOTION,       PMW3610_REG_SQUAL,
+        PMW3610_REG_SHUTTER_HIGHER, PMW3610_REG_SHUTTER_LOWER,
+        PMW3610_REG_PIX_MAX,      PMW3610_REG_PIX_AVG,
+        PMW3610_REG_PIX_MIN,
+    };
+    uint8_t values[ARRAY_SIZE(registers)];
+    int irq_level = gpio_pin_get_raw(config->irq_gpio.port, config->irq_gpio.pin);
+    if (irq_level < 0) {
+        LOG_ERR("Cannot read raw IRQ GPIO level: %d", irq_level);
+    } else {
+        LOG_INF("Sensor diag: IRQ(raw before register reads)=%d", irq_level);
+    }
+
+    for (size_t i = 0; i < ARRAY_SIZE(registers); i++) {
+        int err = pmw3610_read_reg(dev, registers[i], &values[i]);
+        if (err) {
+            LOG_ERR("Diagnostic read failed at register 0x%02x: %d", registers[i], err);
+            goto schedule_next;
+        }
+    }
+
+    unsigned int shutter = ((unsigned int)values[2] << 8) | values[3];
+    LOG_INF("Sensor diag: motion=0x%02x squal=%u shutter=%u pixel(max/avg/min)=%u/%u/%u",
+            (unsigned int)values[0], (unsigned int)values[1], shutter,
+            (unsigned int)values[4], (unsigned int)values[5], (unsigned int)values[6]);
+
+schedule_next:
+    k_work_schedule(dwork, K_MSEC(500));
+}
+
 static int pmw3610_write_reg(const struct device *dev, uint8_t addr, uint8_t value) {
 	const struct pixart_config *cfg = dev->config;
 	uint8_t write_buf[] = {addr | SPI_WRITE_BIT, value};
@@ -439,6 +475,7 @@ static void pmw3610_async_init(struct k_work *work) {
             LOG_INF("PMW3610 initialized");
             pmw3610_dump_registers(dev);
             pmw3610_set_interrupt(dev, true);
+            k_work_schedule(&data->diagnostic_work, K_MSEC(500));
         } else {
             k_work_schedule(&data->init_work, K_MSEC(async_init_delay[data->async_init_step]));
         }
@@ -596,6 +633,7 @@ static int pmw3610_init(const struct device *dev) {
 
     // init trigger handler work
     k_work_init(&data->trigger_work, pmw3610_work_callback);
+    k_work_init_delayable(&data->diagnostic_work, pmw3610_diagnostic_work);
 
     // init irq routine
     err = pmw3610_init_irq(dev);

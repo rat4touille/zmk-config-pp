@@ -24,6 +24,7 @@ struct pixart_data {
     struct k_work                trigger_work; // realtrigger job
 
     struct k_work_delayable      init_work; // the work structure for delayable init steps
+    struct k_work_delayable      diagnostic_work; // periodic sensor diagnostics
     int                          async_init_step;
 
     bool                         ready; // whether init is finished successfully

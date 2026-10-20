@@ -1,11 +1,7 @@
-if SHIELD_PP_LEFT
+if SHIELD_PP_RIGHT
 
 config ZMK_KEYBOARD_NAME
     default "PP"
-
-endif
-
-if SHIELD_PP_RIGHT
 
 config ZMK_SPLIT_ROLE_CENTRAL
     default y

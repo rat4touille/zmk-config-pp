@@ -21,10 +21,10 @@
 include:
   - board: nice_nano_v2
     shield: pp_left
-  - board: nice_nano_v2
-    shield: pp_right
     snippet: studio-rpc-usb-uart
     cmake-args: -DCONFIG_ZMK_STUDIO=y
+  - board: nice_nano_v2
+    shield: pp_right
   - board: nice_nano_v2
     shield: pp_right
     snippet: zmk-usb-logging

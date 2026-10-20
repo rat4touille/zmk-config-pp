@@ -22,20 +22,3 @@
             ;
     };
 };
-
-/ {
-    split_inputs {
-        #address-cells = <1>;
-        #size-cells = <0>;
-
-        pmw3610_input_split: input_split@0 {
-            compatible = "zmk,input-split";
-            reg = <0>;
-        };
-    };
-
-    pmw3610_listener {
-        compatible = "zmk,input-listener";
-        device = <&pmw3610_input_split>;
-    };
-};

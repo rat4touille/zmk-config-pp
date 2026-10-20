@@ -21,4 +21,19 @@
             , <&gpio1 0 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
             ;
     };
+
+    splits {
+        #address-cells = <1>;
+        #size-cells = <0>;
+
+        split_input: split_input@0 {
+            compatible = "zmk,input-split";
+            reg = <0>;
+        };
+    };
+
+    pmw3610_listener {
+        compatible = "zmk,input-listener";
+        device = <&split_input>;
+    };
 };

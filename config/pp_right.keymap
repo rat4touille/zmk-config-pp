@@ -15,8 +15,15 @@
 
         studio_unlock_combo_right {
             timeout-ms = <1000>;
-            key-positions = <34 35>;
+            key-positions = <36 37>;
             bindings = <&studio_unlock>;
+        };
+
+        combo_steno_toggle {
+            timeout-ms = <250>;
+            key-positions = <32 33>;
+            layers = <0 2>;
+            bindings = <&tog 2>;
         };
     };
 
@@ -37,8 +44,18 @@
             bindings = <
                 &out OUT_BLE  &out OUT_USB  &bt BT_CLR  &bt BT_SEL 0  &bt BT_SEL 1    &out OUT_BLE  &out OUT_USB  &bt BT_CLR  &bt BT_SEL 0  &bt BT_SEL 1
                 &trans        &trans       &trans        &trans        &trans          &trans        &trans       &trans        &trans        &trans
-                &trans        &trans       &trans        &trans        &trans          &trans        &trans       &trans        &trans
-                &trans        &trans       &trans        &trans          &trans        &trans       &trans        &trans
+                &trans        &trans       &trans        &trans        &trans          &trans        &trans       &trans        &trans        &trans
+                &trans        &trans       &trans        &trans        &trans          &trans        &trans       &trans
+            >;
+        };
+
+        steno_layer {
+            display-name = "Steno";
+            bindings = <
+                &trans        &trans       &trans        &trans        &trans          &trans        &trans       &trans        &trans        &trans
+                &trans        &trans       &trans        &trans        &trans          &trans        &trans       &trans        &trans        &trans
+                &trans        &trans       &trans        &trans        &trans          &trans        &trans       &trans        &trans        &trans
+                &trans        &trans       &trans        &trans        &trans          &trans        &trans       &trans
             >;
         };
 
@@ -47,6 +64,18 @@
         };
 
         extra2 {
+            status = "reserved";
+        };
+
+        extra3 {
+            status = "reserved";
+        };
+
+        extra4 {
+            status = "reserved";
+        };
+
+        extra5 {
             status = "reserved";
         };
     };

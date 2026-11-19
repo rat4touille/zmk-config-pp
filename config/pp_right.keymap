@@ -3,6 +3,10 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/outputs.h>
 
+&mt {
+    tapping-term-ms = <250>;
+};
+
 / {
     combos {
         compatible = "zmk,combos";
@@ -30,11 +34,11 @@
     keymap {
         compatible = "zmk,keymap";
 
-        default_layer {
+        default_layer { // Layer 0
             bindings = <
-                &kp Z    &kp M    &kp K    &kp Y    &kp W    &kp Z    &kp M    &kp K    &kp Y    &kp W
-                &kp A    &kp B    &kp C    &kp R    &kp G    &kp A    &kp B    &kp C    &kp R    &kp G
-                &kp C_AL_WWW    &kp E    &kp F    &kp N    &kp P    &kp C_AL_WWW    &kp E    &kp F    &kp N    &kp P
+                &kp Q    &kp W    &kp F    &kp P    &kp B    &kp J    &kp L    &kp U    &kp Y   &kp APOS
+                &mt LCMD A    &mt LCTRL R    &mt LALT S    &mt LSHIFT T    &kp G    &kp M    &mt LSHIFT N    &mt LALT E    &mt LCTRL I    &mt LCMD O
+                &kp Z    &kp X    &kp C    &kp D    &kp V    &kp K    &kp H    &kp COMMA    &kp PERIOD    &kp SLASH
                 &kp Q    &kp B    &kp L    &mo 1    &kp Q    &kp B    &kp L    &mo 1
             >;
         };
@@ -49,12 +53,12 @@
             >;
         };
 
-        steno_layer {
-            display-name = "Steno";
+        num_layer {
+            display-name = "Num";
             bindings = <
-                &trans        &trans       &trans        &trans        &trans          &trans        &trans       &trans        &trans        &trans
-                &trans        &trans       &trans        &trans        &trans          &trans        &trans       &trans        &trans        &trans
-                &trans        &trans       &trans        &trans        &trans          &trans        &trans       &trans        &trans        &trans
+                &kp LBKT  &kp N7  &kp N8  &kp N9  &kp RBKT     &trans          &trans        &trans       &trans        &trans        &trans
+                &kp SEMI        &kp N4       &kp N5        &kp N6        &kp EQUAL          &trans        &trans       &trans        &trans        &trans
+                &kp GRAVE       &kp N1       &kp N2        &kp N3        &kp BLSH          &trans        &trans       &trans        &trans        &trans
                 &trans        &trans       &trans        &trans        &trans          &trans        &trans       &trans
             >;
         };

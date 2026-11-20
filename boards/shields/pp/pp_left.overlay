@@ -32,7 +32,7 @@
         };
     };
 
-    pmw3610_listener {
+    pmw3610_listener: pmw3610_listener {
         compatible = "zmk,input-listener";
         device = <&split_input>;
     };
